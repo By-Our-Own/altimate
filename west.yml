@@ -1,0 +1,17 @@
+manifest:
+  defaults:
+    remote: boo
+
+  remotes:
+    - name: boo
+      url-base: git@github.com:By-Our-Own
+
+  projects:
+    - name: zephyr
+      repo-path: boo-zephyr
+      path: 3rd-party/zephyr
+      west-commands: scripts/west-commands.yml
+      revision: v2.1-branch
+
+  self:
+    path: altimate
