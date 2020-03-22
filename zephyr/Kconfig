@@ -1,0 +1,12 @@
+#
+# Copyright (c) 2020 Ioannis Konstantelias
+#
+# SPDX-License-Identifier: Apache-2.0
+# 
+
+menu "BOO Altimate"
+
+# rsource "samples/Kconfig"
+rsource "drivers/Kconfig"
+
+endmenu
