@@ -5,13 +5,23 @@ manifest:
   remotes:
     - name: boo
       url-base: git@github.com:By-Our-Own
+    - name: zephyrproject
+      url-base: https://github.com/zephyrproject-rtos
 
   projects:
     - name: zephyr
       repo-path: boo-zephyr
       path: 3rd-party/zephyr
       west-commands: scripts/west-commands.yml
-      revision: v2.1-branch
+      revision: 82799d2ae429a53cccf24971e725d9e76d8f84f7
+    - name: hal_st
+      path: 3rd-party/modules/hal/st
+      remote: zephyrproject
+      revision: fa481784b3c49780f18d50bafe00390ccb62b2ec
+    - name: hal_stm32
+      path: 3rd-party/modules/hal/stm32
+      remote: zephyrproject
+      revision: dee4413253623ec575bb8b58abd56f91afe903bb
 
   self:
     path: altimate
