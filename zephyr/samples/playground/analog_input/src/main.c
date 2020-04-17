@@ -8,16 +8,16 @@
 #include <device.h>
 #include <drivers/adc.h>
 #include <stdio.h>
+#include <drivers/pwm.h>
 
-
-
-
-
+#define PWM_FLAGS	0
+#define max_voltage 3.3
+#define PERIOD (USEC_PER_SEC / 50U)
 
 void main(void)
 {
-	
-	double resistance;
+	struct device *pwm_dev;
+	u32_t pulse_width = 0U;
 	float voltage;
 	s32_t buffer;
 	int err;
@@ -53,6 +53,12 @@ void main(void)
 		return;
 	}
 
+	pwm_dev = device_get_binding("PWM_1");
+	if (!pwm_dev) {
+		printk("Cannot find PWM_1 !");
+		return;
+	}
+
 	while (true) {
 		buffer=0;
 		err = adc_read(pot_dev, &seq);
@@ -62,6 +68,13 @@ void main(void)
 		}
 		voltage= ( (float)buffer / 4096) * 3.3f;
 		printf("%f\n",voltage);
-		k_sleep(1000);
+
+		pulse_width=PERIOD*voltage/max_voltage;
+		if (pwm_pin_set_usec(pwm_dev, 1,
+					PERIOD, pulse_width, PWM_FLAGS)) {
+			printk("pwm pin set fails\n");
+			return;
+		}
+		k_sleep(100);
 	}
 }
